@@ -25,7 +25,7 @@
             </el-form-item>
 
             <el-form-item>
-              <el-button class="login-btn" type="primary" @click="hLogin">登录</el-button>
+              <el-button :loading="loginLoading" @click="hLogin" class="login-btn" type="primary">登录</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -44,7 +44,9 @@ export default {
         mobile: '13911111111',
         code: '246810'
       },
-      checked: false
+      checked: false, // 是否同意协议
+      // 如果它为true，则会转圈圈
+      loginLoading: false // 登陆按钮上的loading
     }
   },
   methods: {
@@ -64,6 +66,9 @@ export default {
         return
       }
 
+      // 开启按钮上的loading效果
+      this.loginLoading = true
+
       // 3. 发根据接口文档的要求，发出ajax请求
       //  1) 引入request.js
       //  2) 发请求
@@ -75,10 +80,19 @@ export default {
           code: this.user.code
         }
       }).then(res => {
-        alert('ok')
+        this.$message({
+          message: '登陆成功',
+          type: 'success'
+        })
         console.log(res.data)
+        // 关闭loading状态
+        this.loginLoading = false
       }).catch(err => {
+        // 登陆出错了
+        this.$message.error('登陆出错了')
         console.log(err)
+        // 关闭loading状态
+        this.loginLoading = false
       })
     }
   }

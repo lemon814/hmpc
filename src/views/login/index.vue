@@ -37,8 +37,7 @@
 </template>
 
 <script>
-// ajax名字是可以改的。它的格式与 axios()的格式是一样的
-import ajax from '../../utils/request.js'
+import { userLogin } from '../../api/user'
 export default {
   name: 'Login',
   data () {
@@ -99,14 +98,10 @@ export default {
       // 3. 发根据接口文档的要求，发出ajax请求
       //  1) 引入request.js
       //  2) 发请求
-      ajax({
-        method: 'POST',
-        url: '/mp/v1_0/authorizations',
-        data: {
-          mobile: this.user.mobile,
-          code: this.user.code
-        }
-      }).then(res => {
+      // userLogin(this.user.mobile, this.user.code)
+      // 它是函数调用，结果是一个promsie对象:在api/user.js中，这个函数有一个return值
+      // 所以，它后面可以接then,catch
+      userLogin(this.user.mobile, this.user.code).then(res => {
         this.$message({
           message: '登陆成功',
           type: 'success'
@@ -124,6 +119,8 @@ export default {
     },
     // 实现登陆功能
     hLogin () {
+      // 测试 userLogin
+
       // 调用表单验证功能
       // https://element.eleme.cn/#/zh-CN/component/form#form-methods
       // element-ui的form组件提供了一个整体验证的函数:validate

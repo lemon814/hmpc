@@ -9,10 +9,13 @@ import VueRouter from 'vue-router'
 // 导入登陆组件
 // 导入了组件并不是说它立即会显示出来，而是会根据当前地址和路由表来决定是否显示
 import Login from '../views/login/index.vue'
+
+import Layout from '../views/layout/index.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/login', component: Login }
+  { path: '/login', component: Login },
+  { path: '/', component: Layout }
 ]
 
 const router = new VueRouter({

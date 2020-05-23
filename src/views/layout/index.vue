@@ -8,7 +8,7 @@
             <div class="logo"></div>
             <!-- 菜单区域 -->
             <el-menu
-            default-active="2"
+            default-active="/"
             class="nav-menu"
             background-color="#002033"
             text-color="#fff"
@@ -45,7 +45,27 @@
             </el-menu>
         </el-aside>
         <el-container>
-            <el-header class="header">Header</el-header>
+            <el-header class="header">
+                <!-- 内容有两部分：公司名 + 右侧的下拉菜单 -->
+                <div>
+                    <i class="el-icon-s-unfold"></i>
+                    <span>江苏传智播客科技教育有限公司</span>
+                </div>
+
+                <el-dropdown>
+                    <!-- 默认插槽：直接显示出来 -->
+                    <div class="avatar-wrap">
+                        <img class="avatar" src="http://toutiao.meiduo.site/FrvifflobfNNRM9V_ZBTI2ZaTH4n" alt="">
+                        <span>用户昵称</span>
+                        <i class="el-icon-arrow-down el-icon--right"></i>
+                    </div>
+                    <!-- 具名插槽：设置下拉菜单的内容 -->
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>设置</el-dropdown-item>
+                        <el-dropdown-item>退出</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </el-header>
             <el-main class="main">Main</el-main>
         </el-container>
     </el-container>
@@ -92,7 +112,20 @@ export default {
     }
 
     .header {
-        background-color: #b3c0d1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        .avatar-wrap {
+            display: flex;
+            align-items: center;
+            .avatar {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        }
     }
 
     .main {

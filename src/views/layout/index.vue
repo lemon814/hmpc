@@ -1,18 +1,25 @@
 <template>
     <el-container class="layout-container">
+        <!-- 如果折叠，宽是64 -->
         <el-aside
         class="aside"
-        width="200px"
+        :width="isCollapse ? '64px' : '200px'"
         >
-            <!-- 上面是一个logo -->
-            <div class="logo"></div>
-            <!-- 菜单区域 -->
+            <!-- 上面是一个logo，如果是折叠，要更换logo的背景图。添加一个类.minLogo-->
+            <div class="logo" :class="{minLogo:isCollapse}"></div>
+            <!-- 菜单区域
+            collapse:控制折叠效果的
+            如果为true: 只显示图标，不显示文字，可以节省一定的宽度
+            如果是false: 显示图标和文字
+            -->
             <el-menu
             default-active="/"
             class="nav-menu"
             background-color="#002033"
             text-color="#fff"
             active-text-color="#ffd04b"
+            :collapse="isCollapse"
+            :collapse-transition="false"
             >
                 <el-menu-item index="/">
                     <i class="el-icon-s-home"></i>
@@ -48,7 +55,11 @@
             <el-header class="header">
                 <!-- 内容有两部分：公司名 + 右侧的下拉菜单 -->
                 <div>
-                    <i class="el-icon-s-unfold"></i>
+                    <i
+                    @click="isCollapse=!isCollapse"
+                    :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+                    >
+                    </i>
                     <span>江苏传智播客科技教育有限公司</span>
                 </div>
 
@@ -76,7 +87,9 @@ export default {
   name: 'Layout',
   props: { },
   data () {
-    return { }
+    return {
+      isCollapse: false // 默认侧边栏不折叠（展开）
+    }
   },
   computed: { },
   created () { },

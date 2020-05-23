@@ -95,8 +95,6 @@ export default {
   created () {
     // 组件创建完成就去调用
     this.setUserProfile()
-    // 请求用户信息，显示在顶部
-    userGetProfile()
   },
   methods: {
     // 方法：设置用户信息

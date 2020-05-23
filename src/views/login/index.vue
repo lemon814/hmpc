@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
-      <!--
-      el-form 表单组件
-      每个表单项都必须使用 el-form-item 组件包裹
-     -->
+    <!--
+    el-form 表单组件
+    每个表单项都必须使用 el-form-item 组件包裹
+    -->
     <div class="login-form-wrap">
       <!-- logo部分 -->
         <div class="login-head">
@@ -11,7 +11,6 @@
         </div>
         <!-- 表单部分
         要做表单验证要加： rulues,model,prop
-
         ref="myform" : 在代码中就可以通过this.$refs.myform (或 this.$refs["myform"]) 来访问组件
         -->
         <el-form class="login-form" :model="user" ref="myform" :rules="rules">
@@ -29,6 +28,7 @@
             </el-form-item>
 
             <el-form-item>
+              <!-- 按钮上有一个loading属性 -->
               <el-button :loading="loginLoading" @click="hLogin" class="login-btn" type="primary">登录</el-button>
             </el-form-item>
         </el-form>
@@ -95,7 +95,7 @@ export default {
       // 开启按钮上的loading效果
       this.loginLoading = true
 
-      // 3. 发根据接口文档的要求，发出ajax请求
+      // 3. 根据接口文档的要求，发出ajax请求
       //  1) 引入request.js
       //  2) 发请求
       // userLogin(this.user.mobile, this.user.code)
@@ -106,9 +106,14 @@ export default {
           message: '登陆成功',
           type: 'success'
         })
-        console.log(res.data)
+        console.log(res.data.data)
         // 关闭loading状态
         this.loginLoading = false
+        // 把获取的数据保存在localStorage
+        // localStorage.setItem("userinfo",字符串)
+        localStorage.setItem('userInfo', JSON.stringify(res.data.data))
+        // 跳转到主页:通过代码的方式来进行页面的跳转---编程式导航
+        this.$router.push('/')
       }).catch(err => {
         // 登陆出错了
         this.$message.error('登陆出错了')
@@ -128,6 +133,8 @@ export default {
       ///   如何选中某个组件？ (1) 给组件添加属性ref (2)通过this.$refs[ref属性值] 来访问
       //                           this.$refs 专用来获取对组件的引用
       console.log(this.$refs.myform)
+      // validate 是别人提供的函数，我们直接来用
+      // 传入一个回调就行，第一个参数就是验证的结果
       this.$refs.myform.validate(valid => {
         console.log('验证结果', valid)
         if (valid) {

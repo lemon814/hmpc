@@ -83,16 +83,18 @@
 </template>
 
 <script>
+import { userGetProfile } from '../../api/user'
 export default {
   name: 'Layout',
-  props: { },
   data () {
     return {
       isCollapse: false // 默认侧边栏不折叠（展开）
     }
   },
-  computed: { },
-  created () { },
+  created () {
+    // 请求用户信息，显示在顶部
+    userGetProfile()
+  },
   mounted () { }
 }
 </script>

@@ -3,7 +3,7 @@
  *
  * es6按需导入导出
  */
-
+import { getUser } from '../utils/storage'
 // ajax名字是可以改的。它的格式与 axios()的格式是一样的
 import ajax from '../utils/request'
 //  定义一个函数，并导出
@@ -27,7 +27,7 @@ export const userLogin = (mobile, code) => {
  * 这个接口是需要token信息才能访问的
  */
 export const userGetProfile = () => {
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  const userInfo = getUser()
   // 请求接口
   return ajax({
     method: 'GET',

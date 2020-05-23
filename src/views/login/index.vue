@@ -38,6 +38,7 @@
 
 <script>
 import { userLogin } from '../../api/user'
+import { setUser } from '../../utils/storage'
 export default {
   name: 'Login',
   data () {
@@ -110,8 +111,7 @@ export default {
         // 关闭loading状态
         this.loginLoading = false
         // 把获取的数据保存在localStorage
-        // localStorage.setItem("userinfo",字符串)
-        localStorage.setItem('userInfo', JSON.stringify(res.data.data))
+        setUser(res.data.data)
         // 跳转到主页:通过代码的方式来进行页面的跳转---编程式导航
         this.$router.push('/')
       }).catch(err => {

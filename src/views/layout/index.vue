@@ -66,8 +66,8 @@
                 <el-dropdown>
                     <!-- 默认插槽：直接显示出来 -->
                     <div class="avatar-wrap">
-                        <img class="avatar" src="http://toutiao.meiduo.site/FrvifflobfNNRM9V_ZBTI2ZaTH4n" alt="">
-                        <span>用户昵称</span>
+                        <img class="avatar" :src="user.photo" alt="">
+                        <span>{{user.name}}</span>
                         <i class="el-icon-arrow-down el-icon--right"></i>
                     </div>
                     <!-- 具名插槽：设置下拉菜单的内容 -->
@@ -88,14 +88,26 @@ export default {
   name: 'Layout',
   data () {
     return {
+      user: null, // 当前用户信息
       isCollapse: false // 默认侧边栏不折叠（展开）
     }
   },
   created () {
+    // 组件创建完成就去调用
+    this.setUserProfile()
     // 请求用户信息，显示在顶部
     userGetProfile()
   },
-  mounted () { }
+  methods: {
+    // 方法：设置用户信息
+    setUserProfile () {
+      userGetProfile().then(res => {
+        // console.log(res)
+        // 注意： res.data.data 这里有两层.data才能取回真正的数据
+        this.user = res.data.data
+      })
+    }
+  }
 }
 </script>
 

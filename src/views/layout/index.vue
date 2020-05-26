@@ -88,7 +88,7 @@ export default {
   name: 'Layout',
   data () {
     return {
-      user: null, // 当前用户信息
+      user: {}, // 当前用户信息
       isCollapse: false // 默认侧边栏不折叠（展开）
     }
   },
@@ -103,6 +103,13 @@ export default {
         // console.log(res)
         // 注意： res.data.data 这里有两层.data才能取回真正的数据
         this.user = res.data.data
+      }).catch(err => {
+        console.dir(err)
+        // 401表示没有权限
+        if (err.response.status === 401) {
+          alert('无权访问')
+          this.$router.push('/login')
+        }
       })
     }
   }

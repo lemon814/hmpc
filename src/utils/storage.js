@@ -18,7 +18,14 @@ const setUser = (user) => {
  * 取出用户信息
 */
 const getUser = () => {
-  return JSON.parse(localStorage.getItem(KEY))
+  // 如果本地获取不到这个key的值，先填入 {}
+  // 避免后绪的代码出错。
+  // userInfo.token
+  //    当userInfo为null,代码就挂了
+  //    当userInfo为{}，代码是Ok
+  const result = JSON.parse(localStorage.getItem(KEY)) || {}
+  console.log('getuser', result)
+  return result
 }
 
 export { setUser, getUser }

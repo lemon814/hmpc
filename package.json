@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "ansi-regex": "^6.0.1",
-    "axios": "^1.1.2",
+    "axios": "^1.6.0",
     "core-js": "^3.25.5",
     "element-ui": "^2.15.10",
     "vue": "^3.2.40",
